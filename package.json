@@ -1,0 +1,18 @@
+{
+  "name": "vassels",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "dev": "node --watch app"
+  },
+  "keywords": [],
+  "author": "Oybek Malikov",
+  "license": "ISC",
+  "description": "Backend of a small project for renting ships, boats and other water transport",
+  "dependencies": {
+    "config": "^3.3.12",
+    "express": "^5.1.0",
+    "pg": "^8.14.1",
+    "sequelize": "^6.37.7"
+  }
+}
