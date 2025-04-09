@@ -1,32 +1,39 @@
 const Joi = require("joi");
 exports.bookingsValidation = (body) => {
   const bookingsValid = Joi.object({
-    start_date: Joi.date()
-      .message("Booking's start date was entered incorrectly")
-      .required()
-      .message("Booking's start date is required"),
-    end_date: Joi.date()
-      .message("Booking's end date was entered incorrectly")
-      .required()
-      .message("Booking's end date is required"),
-    cost: Joi.number()
-      .message("Booking's cost was entered incorrectly")
-      .required()
-      .message("Booking's cost is required."),
+    id: Joi.number(),
+    start_date: Joi.date().required().messages({
+      "date.base": "Booking's start date was entered incorrectly",
+      "any.required": "Booking's start date is required",
+    }),
+    end_date: Joi.date().required().messages({
+      "date.base": "Booking's end date was entered incorrectly",
+      "any.required": "Booking's end date is required",
+    }),
+    cost: Joi.number().required().messages({
+      "number.base": "Booking's cost was entered incorrectly",
+      "any.required": "Booking's cost is required.",
+    }),
     status: Joi.string()
       .valid("pending", "confirmed", "canceled", "completed")
-      .message("Bookings's status was entered incorrectly")
       .required()
-      .message("Bookings's status is required"),
-    notes: Joi.string(),
-    client_id: Joi.number()
-      .message("Booking's client id was entered incorrectly")
-      .required()
-      .message("Booking's client id is required"),
-    vassel_id: Joi.number()
-      .message("Booking's vassel id was entered incorrectly")
-      .required()
-      .message("Booking's vassel id is required"),
+      .messages({
+        "any.only":
+          "Booking's status must be one of: pending, confirmed, canceled, or completed",
+        "string.base": "Booking's status was entered incorrectly",
+        "any.required": "Booking's status is required",
+      }),
+    notes: Joi.string().optional(),
+    clientId: Joi.number().required().messages({
+      "number.base": "Booking's client id was entered incorrectly",
+      "any.required": "Booking's client id is required",
+    }),
+    vasselId: Joi.number().required().messages({
+      "number.base": "Booking's vassel id was entered incorrectly",
+      "any.required": "Booking's vassel id is required",
+    }),
+    createdAt: Joi.date(),
+    updatedAt: Joi.date(),
   });
   return bookingsValid.validate(body, { abortEarly: false });
 };

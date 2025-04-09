@@ -2,25 +2,18 @@ const Joi = require("joi");
 const timeRegex = /^([01]\d|2[0-3]):[0-5]\d(:[0-5]\d)?$/;
 exports.otpsValidation = (body) => {
   const otpsValid = Joi.object({
-    email: Joi.string()
-      .email()
-      .message("Opt's email was entered incorrectly")
-      .required()
-      .message("Otp's email is required"),
-    otp: Joi.string()
-      .message("otp was entered incorrectly")
-      .required()
-      .message("otp is required"),
-    verified: Joi.boolean()
-      .message(`Verified mest be "true" or "false"`)
-      .default(false),
-    expiration_time: Joi.string()
-      .pattern(timeRegex)
-      .message(
-        `Enter the expiration time with correctly format like "HH:MM:SS" or "HH:MM"`
-      )
-      .required()
-      .message("Expiration time is required"),
+    otp: Joi.string().required().messages({
+      "string.base": "OTP was entered incorrectly",
+      "any.required": "OTP is required",
+    }),
+    verified: Joi.boolean().default(false).messages({
+      "boolean.base": 'Verified must be "true" or "false"',
+    }),
+    expiration_time: Joi.string().pattern(timeRegex).required().messages({
+      "string.pattern.base":
+        'Enter the expiration time in correct format like "HH:MM:SS" or "HH:MM"',
+      "any.required": "Expiration time is required",
+    }),
   });
   return otpsValid.validate(body, { abortEarly: false });
 };

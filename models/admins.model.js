@@ -16,17 +16,18 @@ const Admins = sequelize.define(
       unique: true,
     },
     password: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(100),
     },
-    role: {
-      type: DataTypes.ENUM(["ADMIN", "CREATOR"]),
+    is_creator: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
     is_active: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
     refresh_token: {
-      type: DataTypes.STRING(150),
+      type: DataTypes.STRING,
     },
   },
   {

@@ -33,10 +33,10 @@ const Penalties = sequelize.define(
     freezeTableName: true,
   }
 );
-Penalties.belongsTo(Clients, { foreignKey: "client_id" });
+Penalties.belongsTo(Clients);
 Clients.hasMany(Penalties);
-Penalties.belongsTo(Vassels, { foreignKey: "vassel_id" });
+Penalties.belongsTo(Vassels);
 Vassels.hasMany(Penalties);
-Penalties.belongsTo(Bookings, { foreignKey: "booking_id" });
+Penalties.belongsTo(Bookings);
 Bookings.hasMany(Penalties);
 module.exports = Penalties;

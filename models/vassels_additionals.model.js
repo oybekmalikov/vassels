@@ -22,6 +22,6 @@ const VasselsAdditionals = sequelize.define(
     createdAt: false,
   }
 );
-VasselsAdditionals.belongsTo(Vassels, { foreignKey: "vassel_id" });
+VasselsAdditionals.belongsTo(Vassels);
 Vassels.hasMany(VasselsAdditionals);
 module.exports = VasselsAdditionals;

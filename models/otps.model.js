@@ -4,12 +4,8 @@ const Otps = sequelize.define(
   "otps",
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       primaryKey: true,
-      autoIncrement: true,
-    },
-    email: {
-      type: DataTypes.STRING(100),
     },
     otp: {
       type: DataTypes.STRING(10),
@@ -19,7 +15,7 @@ const Otps = sequelize.define(
       defaultValue: false,
     },
     expiration_time: {
-      type: DataTypes.TIME,
+      type: DataTypes.DATE,
     },
   },
   {

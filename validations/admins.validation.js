@@ -1,32 +1,24 @@
 const Joi = require("joi");
 exports.adminsValidation = (body) => {
   const adminsValid = Joi.object({
-    full_name: Joi.string()
-      .max(50)
-      .message("Admin's full name must lower than 50 characters")
-      .default("UnknownAdmin"),
-    email: Joi.string()
-      .email()
-      .message("Admin's email was entered incorrectly")
-      .required()
-      .message("Admin's email is required"),
-    password: Joi.string()
-      .message("Password was entered incorrectly")
-      .min(8)
-      .message("Password must greater than 7 characters")
-      .max(30)
-      .message("Password must lower than 30 characters")
-      .required()
-      .message("Password is required"),
-    role: Joi.string()
-      .valid("ADMIN", "CREATOR")
-      .message(
-        `Admin's role was entered incorrectly (role can be "ADMIN" or "CREATOR")`
-      )
-      .required()
-      .message("Admin's role is reqired"),
+    id: Joi.number(),
+    full_name: Joi.string().max(50).default("UnknownAdmin").messages({
+      "string.max": "Admin's full name must be lower than 50 characters",
+    }),
+    email: Joi.string().email().required().messages({
+      "string.email": "Admin's email was entered incorrectly",
+      "any.required": "Admin's email is required",
+    }),
+    password: Joi.string().min(8).max(100).required().messages({
+      "string.min": "Password must be greater than 7 characters",
+      "string.max": "Password must be lower than 100 characters",
+      "any.required": "Password is required",
+    }),
+    is_creator: Joi.boolean().default(false).optional(),
     is_active: Joi.boolean().default(false),
-    refresh_token: Joi.string(),
+    refresh_token: Joi.string().default("null").optional(),
+    createdAt: Joi.date(),
+    updatedAt: Joi.date(),
   });
   return adminsValid.validate(body, { abortEarly: false });
 };

@@ -30,8 +30,8 @@ const Bookings = sequelize.define(
     freezeTableName: true,
   }
 );
-Bookings.belongsTo(Clients, { foreignKey: "client_id" });
+Bookings.belongsTo(Clients);
 Clients.hasMany(Bookings);
-Bookings.belongsTo(Vassels, { foreignKey: "vassel_id" });
+Bookings.belongsTo(Vassels);
 Vassels.hasMany(Bookings);
 module.exports = Bookings;

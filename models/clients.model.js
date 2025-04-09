@@ -16,25 +16,29 @@ const Clients = sequelize.define(
     },
     email: {
       type: DataTypes.STRING(100),
+      unique: true,
     },
     password: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(100),
     },
     phone: {
       type: DataTypes.STRING(30),
+      unique: true,
     },
     passport_data: {
       type: DataTypes.STRING(20),
+      unique: true,
     },
     passport_img_path: {
       type: DataTypes.STRING,
+      unique: true,
     },
     is_active: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
     refresh_token: {
-      type: DataTypes.STRING(150),
+      type: DataTypes.STRING,
     },
   },
   {

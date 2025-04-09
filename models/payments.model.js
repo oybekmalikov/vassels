@@ -25,10 +25,10 @@ const Payments = sequelize.define(
     freezeTableName: true,
   }
 );
-Payments.belongsTo(Clients, { foreignKey: "client_id" });
+Payments.belongsTo(Clients);
 Clients.hasMany(Payments);
-Payments.belongsTo(Owners, { foreignKey: "owner_id" });
+Payments.belongsTo(Owners);
 Owners.hasMany(Payments);
-Payments.belongsTo(Bookings, { foreignKey: "booking_id" });
+Payments.belongsTo(Bookings);
 Bookings.hasMany(Payments);
 module.exports = Payments;

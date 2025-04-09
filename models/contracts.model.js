@@ -1,7 +1,10 @@
 const sequelize = require("../config/ConnectToDB");
 const { DataTypes } = require("sequelize");
-const Bookings = require("./bookings.model");
 const Payments = require("./payments.model");
+const Clients = require("./clients.model");
+const Owners = require("./owners.model");
+const Vassels = require("./vassels.model");
+const ContractStatus = require("./contract_status.model");
 const Contracts = sequelize.define(
   "contracts",
   {
@@ -19,13 +22,25 @@ const Contracts = sequelize.define(
     signed_date: {
       type: DataTypes.DATE,
     },
+    start_date: {
+      type: DataTypes.DATE,
+    },
+    end_date: {
+      type: DataTypes.DATE,
+    },
   },
   {
     freezeTableName: true,
   }
 );
-Contracts.belongsTo(Payments, { foreignKey: "payment_id" });
+Contracts.belongsTo(Payments);
 Payments.hasMany(Contracts);
-Contracts.belongsTo(Bookings, { foreignKey: "booking_id" });
-Bookings.hasMany(Contracts);
+Contracts.belongsTo(Clients);
+Clients.hasMany(Contracts);
+Contracts.belongsTo(Owners);
+Owners.hasMany(Contracts);
+Contracts.belongsTo(Vassels);
+Vassels.hasMany(Contracts);
+Contracts.belongsTo(ContractStatus);
+ContractStatus.hasMany(Contracts);
 module.exports = Contracts;

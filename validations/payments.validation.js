@@ -1,32 +1,41 @@
 const Joi = require("joi");
-exports.paymnetsValidation = (body) => {
-  const paymnetsValid = Joi.object({
-    total_cost: Joi.number()
-      .message("Payment's total cost was entered incorrectly")
-      .required()
-      .message("Payment's total cost is required."),
+exports.paymentsValidation = (body) => {
+  const paymentsValid = Joi.object({
+    id: Joi.number(),
+    total_cost: Joi.number().required().messages({
+      "number.base": "Payment's total cost was entered incorrectly",
+      "any.required": "Payment's total cost is required.",
+    }),
     payment_method: Joi.string()
       .valid("card", "cash", "bank_transfer", "other")
-      .message("Payments's method was entered incorrectly")
       .required()
-      .message("Payments's method is required"),
+      .messages({
+        "any.only": "Payment's method was entered incorrectly",
+        "any.required": "Payment's method is required",
+        "string.base": "Payment's method must be a string",
+      }),
     status: Joi.string()
       .valid("pending", "canceled", "completed")
-      .message("Payments's status was entered incorrectly")
       .required()
-      .message("Payments's status is required"),
-    client_id: Joi.number()
-      .message("Payment's client id was entered incorrectly")
-      .required()
-      .message("Payment's client id is required"),
-    owner_id: Joi.number()
-      .message("Payment's owner id was entered incorrectly")
-      .required()
-      .message("Payment's owner id is required"),
-    booking_id: Joi.number()
-      .message("Payment's booking id was entered incorrectly")
-      .required()
-      .message("Payment's booking id is required"),
+      .messages({
+        "any.only": "Payment's status was entered incorrectly",
+        "any.required": "Payment's status is required",
+        "string.base": "Payment's status must be a string",
+      }),
+    clientId: Joi.number().required().messages({
+      "number.base": "Payment's client id was entered incorrectly",
+      "any.required": "Payment's client id is required",
+    }),
+    ownerId: Joi.number().required().messages({
+      "number.base": "Payment's owner id was entered incorrectly",
+      "any.required": "Payment's owner id is required",
+    }),
+    bookingId: Joi.number().required().messages({
+      "number.base": "Payment's booking id was entered incorrectly",
+      "any.required": "Payment's booking id is required",
+    }),
+    createdAt: Joi.date(),
+    updatedAt: Joi.date(),
   });
-  return paymnetsValid.validate(body, { abortEarly: false });
+  return paymentsValid.validate(body, { abortEarly: false });
 };

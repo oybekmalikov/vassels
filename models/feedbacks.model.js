@@ -21,8 +21,8 @@ const Feedbacks = sequelize.define(
     freezeTableName: true,
   }
 );
-Feedbacks.belongsTo(Clients, { foreignKey: "client_id" });
+Feedbacks.belongsTo(Clients);
 Clients.hasMany(Feedbacks);
-Feedbacks.belongsTo(Vassels, { foreignKey: "vassel_id" });
+Feedbacks.belongsTo(Vassels);
 Vassels.hasMany(Feedbacks);
 module.exports = Feedbacks;
