@@ -5,10 +5,20 @@ const {
   updateContractById,
   deleteContractById,
 } = require("../controllers/contracts.controller");
+const contractAccessGuard = require("../middlewares/guards/contracts.access.guard");
+const Contracts = require("../models/contracts.model");
 const router = require("express").Router();
-router.post("/", addNewContract);
-router.get("/", getAllContracts);
-router.get("/:id", getContractById);
-router.put("/:id", updateContractById);
-router.delete("/:id", deleteContractById);
+router.post("/", contractAccessGuard("create", Contracts), addNewContract);
+router.get("/", contractAccessGuard("read", Contracts), getAllContracts);
+router.get("/:id", contractAccessGuard("read", Contracts), getContractById);
+router.put(
+  "/:id",
+  contractAccessGuard("update", Contracts),
+  updateContractById
+);
+router.delete(
+  "/:id",
+  contractAccessGuard("delete", Contracts),
+  deleteContractById
+);
 module.exports = router;

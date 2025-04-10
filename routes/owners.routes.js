@@ -11,16 +11,18 @@ const {
   changePassword,
   activateOwner,
 } = require("../controllers/owners.controller");
+const registerGuard = require("../middlewares/guards/register.guard");
+const { ownerSelfGuard } = require("../middlewares/guards/self.guard");
 const router = require("express").Router();
 router.post("/", addNewOwner);
 router.post("/login", loginOwner);
-router.post("/logout", logoutOwner);
-router.get("/update-refresh-token", updateRefreshToken);
-router.post("/get-otp-code", getOtpCode);
+router.post("/logout", registerGuard, logoutOwner);
+router.get("/update-refresh-token", registerGuard, updateRefreshToken);
+router.post("/get-otp-code", registerGuard, getOtpCode);
 router.post("/activate", activateOwner);
-router.post("/change-password", changePassword);
-router.get("/", getAllOwners);
-router.get("/:id", getOwnerById);
-router.put("/:id", updateOwnerById);
-router.delete("/:id", deleteOwnerById);
+router.post("/change-password", registerGuard, changePassword);
+router.get("/", registerGuard, ownerSelfGuard, getAllOwners);
+router.get("/:id", registerGuard, ownerSelfGuard, getOwnerById);
+router.put("/:id", registerGuard, ownerSelfGuard, updateOwnerById);
+router.delete("/:id", registerGuard, ownerSelfGuard, deleteOwnerById);
 module.exports = router;

@@ -155,6 +155,7 @@ const loginClient = async (req, res) => {
     const payload = {
       id: clientData[0].dataValues.id,
       email: clientData[0].dataValues.email,
+      role: "client",
     };
     const jwtService = new JwtService(
       config.get("CLIENT_ACCESS_KEY"),
@@ -227,6 +228,7 @@ const updateRefreshToken = async (req, res) => {
     const payload = {
       id: clientData[0].dataValues.id,
       email: clientData[0].dataValues.email,
+      role: "client",
     };
     const tokens = jwtService.genereteTokens(payload);
     await Clients.update(

@@ -51,8 +51,9 @@ const loginAdmin = async (req, res) => {
     const payload = {
       id: adminData[0].dataValues.id,
       email: adminData[0].dataValues.email,
-      is_creator: adminData[0].dataValues.is_creator,
+      role: adminData[0].dataValues.is_creator ? "creator" : "admin",
     };
+    console.log(payload, adminData[0].dataValues.is_creator);
     const jwtService = new JwtService(
       config.get("ADMIN_ACCESS_KEY"),
       config.get("ADMIN_REFRESH_KEY")
@@ -124,7 +125,7 @@ const updateRefreshToken = async (req, res) => {
     const payload = {
       id: adminData[0].dataValues.id,
       email: adminData[0].dataValues.email,
-      is_creator: adminData[0].dataValues.is_creator,
+      role: adminData[0].dataValues.is_creator ? "creator" : "admin",
     };
     const tokens = jwtService.genereteTokens(payload);
     await Admins.update(

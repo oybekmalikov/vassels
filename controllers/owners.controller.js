@@ -154,6 +154,7 @@ const loginOwner = async (req, res) => {
     const payload = {
       id: ownerData[0].dataValues.id,
       email: ownerData[0].dataValues.email,
+      role: "owner",
     };
     const jwtService = new JwtService(
       config.get("OWNER_ACCESS_KEY"),
@@ -226,6 +227,7 @@ const updateRefreshToken = async (req, res) => {
     const payload = {
       id: ownerData[0].dataValues.id,
       email: ownerData[0].dataValues.email,
+      role: "owner",
     };
     const tokens = jwtService.genereteTokens(payload);
     await Owners.update(
