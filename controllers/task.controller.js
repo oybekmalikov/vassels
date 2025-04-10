@@ -7,11 +7,11 @@ const taskA = async (req, res) => {
     const { start_date, end_date } = req.body;
     const sequelize = require("../config/ConnectToDB");
     const result = await sequelize.query(
-      `SELECT v.id AS "vasselId", v.model, c.start_date, c.end_date, cs.name AS contract_status
-        FROM contracts c
-        JOIN vassels AS v ON c."vasselId" = v.id
-        LEFT JOIN contract_status cs ON c."contractStatusId" = cs.id
-        WHERE (c.end_date <= :end_date AND c.start_date >= :start_date)`,
+      `select v.id as "vasselId", v.model, c.start_date, c.end_date, cs.name AS contract_status
+        from contracts c
+        join vassels as v on c."vasselId" = v.id
+        left JOIN contract_status cs on c."contractStatusId" = cs.id
+        where (c.end_date <= :end_date and c.start_date >= :start_date)`,
       {
         replacements: { start_date, end_date },
         type: sequelize.QueryTypes.SELECT,
@@ -27,11 +27,11 @@ const taskB = async (req, res) => {
     const { start_date, end_date } = req.body;
     const sequelize = require("../config/ConnectToDB");
     const result = await sequelize.query(
-      `select * from owners where id=(SELECT c."ownerId"
-       FROM contracts c
-       JOIN vassels AS v ON c."vasselId" = v.id
-       LEFT JOIN contract_status cs ON c."contractStatusId" = cs.id
-       WHERE (c.end_date <= :end_date AND c.start_date >= :start_date and c."contractStatusId"=4))`,
+      `select * from owners where id=(select c."ownerId"
+       from contracts c
+       join vassels as v on c."vasselId" = v.id
+       left join contract_status cs ON c."contractStatusId" = cs.id
+       where (c.end_date <= :end_date and c.start_date >= :start_date and c."contractStatusId"=4))`,
       {
         replacements: { start_date, end_date },
         type: sequelize.QueryTypes.SELECT,
@@ -47,11 +47,11 @@ const taskC = async (req, res) => {
     const { start_date, end_date } = req.body;
     const sequelize = require("../config/ConnectToDB");
     const result = await sequelize.query(
-      `select * from owners where id=(SELECT c."ownerId"
-       FROM contracts c
-       JOIN vassels AS v ON c."vasselId" = v.id
-       LEFT JOIN contract_status cs ON c."contractStatusId" = cs.id
-       WHERE (c.end_date <= :end_date AND c.start_date >= :start_date and c."contractStatusId"=5))`,
+      `select * from owners where id=(select c."ownerId"
+       from contracts c
+       join vassels as v on c."vasselId" = v.id
+       left join contract_status cs on c."contractStatusId" = cs.id
+       where (c.end_date <= :end_date and c.start_date >= :start_date and c."contractStatusId"=5))`,
       {
         replacements: { start_date, end_date },
         type: sequelize.QueryTypes.SELECT,
@@ -76,17 +76,17 @@ const taskD = async (req, res) => {
     const category_id = categorys[0].dataValues.id;
     const sequelize = require("../config/ConnectToDB");
     const result = await sequelize.query(
-      `SELECT 
+      `select 
         o.id AS "ownerId",
         o.first_name,
         o.last_name,
-        COUNT(c.id) AS all_contracts
-        FROM contracts c
-        JOIN vassels v ON c."vasselId" = v.id
-        JOIN owners o ON c."ownerId" = o.id
-        WHERE v."vasselsCategoryId" = ${category_id}
-        GROUP BY o.id, o.first_name, o.last_name
-        ORDER BY all_contracts DESC;`,
+        count(c.id) as all_contracts
+        from contracts c
+        join vassels v on c."vasselId" = v.id
+        join owners o on c."ownerId" = o.id
+        where v."vasselsCategoryId" = ${category_id}
+        group by o.id, o.first_name, o.last_name
+        order by all_contracts DESC;`,
       {
         type: sequelize.QueryTypes.SELECT,
       }
