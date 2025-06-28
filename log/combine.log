@@ -7,3 +7,14 @@
 {"label":"Lug'atim","level":"error","timestamp":"2025-04-10T05:55:15.952Z"}
 {"label":"Lug'atim","level":"error","timestamp":"2025-04-10T05:55:43.207Z"}
 {"body":"{\r\n    \"start_date\":\"2025-01-01\",\r\n    \"end_date\":\"2026-01-01\",\r\n}","expose":true,"label":"Lug'atim","level":"error","status":400,"statusCode":400,"timestamp":"2025-04-10T06:03:20.091Z","type":"entity.parse.failed"}
+{"message":"Authorization token not given","status":401}
+{"message":"You can only access your own data","status":403}
+{"message":"Data not found","status":404}
+{"message":"Data not found","status":404}
+{"message":"Data not found","status":404}
+{"message":"Data not found","status":404}
+{"message":"Data not found","status":404}
+{"message":"You can only access your own data","status":403}
+{"message":"You can only access your own data","status":403}
+{"label":"Lug'atim","level":"error","timestamp":"2025-04-10T07:52:42.696Z"}
+{"message":"You can only access your own data","status":403}

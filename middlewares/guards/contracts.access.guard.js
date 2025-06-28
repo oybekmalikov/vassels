@@ -4,7 +4,7 @@ const contractAccessGuard = (action, model = null) => {
     const user = req.login;
     if (["admin", "creator"].includes(user.role)) return next();
     if (user.role !== "client" && user.role !== "owner") {
-      return next(ApiError.forbidden("Only owners can access"));
+      return next(ApiError.forbidden("Only owners and client can access"));
     }
     if (action === "create") {
       if (req.body?.clientId === user.id || req.body?.ownerId === user.id) {

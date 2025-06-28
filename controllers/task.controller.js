@@ -68,7 +68,7 @@ const taskD = async (req, res) => {
     const categorys = await VasselsCategories.findAll({
       where: { name: category },
     });
-    if (!categorys) {
+    if (categorys.length==0) {
       return res
         .status(400)
         .send({ message: `Category: ${category} not found` });
